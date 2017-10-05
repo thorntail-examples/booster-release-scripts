@@ -2,7 +2,12 @@
 
 set -euxo pipefail
 
-version=`../current_version.sh`
+if [ -e "pom-redhat.xml" ]; then
+  echo "pom-redhat.xml should not exists in a branch that's already tagged! Exiting."
+  exit 1
+fi
+
+version=`../current_version.sh -c` # remains -c since we already have removed pom-redhat.xml
 cleaned_version=`echo $version | sed -e 's/[^0-9][^0-9]*$//'`
 
 echo "Going to push tag $cleaned_version"
