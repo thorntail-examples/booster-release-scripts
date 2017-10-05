@@ -18,23 +18,22 @@ i.e. you might want to update the swarm version, etc. do the work and commit it 
 i.e. the version in `.openshiftio/booster.yml`
 
 ```
-name: HTTP CRUD - Wildfly Swarm
-description: A simple CRUD applicaiton using Wildfly Swarm
+[...]
 versions:
   - id: community
-    name: 2017.10.0 (Community)
+    name: <COMMUNITY_VERSION> (Community)
   - id: redhat
-    name: 7.0.0.redhat-6 (RHOAR)
+    name: <PRODUCT_VERSION> (RHOAR)
 
 ```
 
 
 ## Prepare the release
 
-`-c` for community releases, `-p` for product releases
+NOTE: `-c` for community releases, `-p` for product releases
 
 ```
-./each.sh "pwd;../prepare_rel_version.sh -p"
+./each.sh "pwd;../prepare_rel_version.sh <FLAG>"
 ```
 
 ## Verify the updated branches
@@ -64,3 +63,12 @@ You may also cleanup the release meta data
 ```
 
 ### Update to the next dev version
+
+```
+./each.sh "pwd; ../next_dev_version.sh <FLAG>"
+```
+
+```
+./each.sh "pwd;git commit -a -m 'Next <product"community> development version'"
+./each.sh "pwd;git push upstream master"
+```

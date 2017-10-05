@@ -5,3 +5,5 @@
 /wfswarm-configmap
 /wfswarm-circuit-breaker
 /.DS_Store
+pom.tmp
+

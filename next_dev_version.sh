@@ -51,7 +51,17 @@ esac
 echo "$cleaned_version -> $new_version"
 
 # update version
-mvn versions:set -DnewVersion=$new_version
+case "$1" in
+  "-p")
+    # -i fails on mac os
+    sed "s/$cleaned_version/$new_version/g" pom-redhat.xml  > pom.tmp && mv pom.tmp pom-redhat.xml
+    ;;
+  "-c")
+    mvn versions:set -DnewVersion=$new_version
+    ;;
+esac
+
+exit 0
 
 # perform tests
 mvn clean install
