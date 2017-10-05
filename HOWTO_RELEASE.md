@@ -5,7 +5,7 @@
 - Clone this directory into $BOOSTER_DIR (your choice)
 - Fetch all booster repositories _into_ $BOOSTER_DIR (Need to be children of $BOOSTER_DIR)
 
-Your worksapce should like like this:
+Your workspace should like like this:
 
 ```
 .
