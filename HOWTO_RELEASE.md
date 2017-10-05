@@ -11,6 +11,13 @@ This works for me, but may not work for anybody else. In particular, these scrip
 
 # Actual Released Steps
 
+## Start clean
+
+```
+./each.sh "pwd;git checkout master"
+./each.sh "pwd;git pull upstream master"
+```
+
 ## Create local branches
 
 Assuming `SWARM-1571` is the jira issue to track the release:
@@ -23,6 +30,11 @@ Assuming `SWARM-1571` is the jira issue to track the release:
 
 i.e. you might want to update the swarm version, etc. do the work and commit it on the branch before committing.
 
+### License updates
+
+In some cases you may have to regenerate the `license.xml`
+
+(TODO)
 
 ### Align the meta data
 
@@ -47,17 +59,33 @@ NOTE: `-c` for community releases, `-p` for product releases
 ./each.sh "pwd;../prepare_rel_version.sh <FLAG>"
 ```
 
+Skim over the commit history. The version should updated and a commit added. This step also create the tag already.
+
+```
+./each.sh "pwd;git log --oneline -n 2"
+```
+
 ## Verify the updated branches
 
-i.e make sure the pom.xml looks correct and pom-redhat.xml has been removed.
+i.e make sure the `pom.xml` looks correct and `pom-redhat.xml` has been removed.
 
 ## Push the tags
 
-If all is good you can push the tags
+If all is good you can push the tags that have been created in the previous step.
 
 ```
 ./each.sh "pwd;../push_latest_tag.sh"
 ```
+### Gather the changes
+
+It's good to update the release jira with the chnages (i.e. new version tags)
+
+```
+./each.sh "pwd; ../current_version.sh -c"
+```
+
+NOTE: This should match the tags
+
 
 ## Update master with the next development version
 
@@ -79,7 +107,8 @@ You may also cleanup the release meta data
 ./each.sh "pwd; ../next_dev_version.sh <FLAG>"
 ```
 
+If all looks good, you can push the changes:
+
 ```
-./each.sh "pwd;git commit -a -m 'Next <product"community> development version'"
 ./each.sh "pwd;git push upstream master"
 ```
