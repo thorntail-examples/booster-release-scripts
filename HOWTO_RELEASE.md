@@ -36,3 +36,31 @@ versions:
 ```
 ./each.sh "pwd;../prepare_rel_version.sh -p"
 ```
+
+## Verify the updated branches
+
+i.e make sure the pom.xml looks correct and pom-redhat.xml has been removed.
+
+## Push the tags
+
+If all is good you can push the tags
+
+```
+./each.sh "pwd;../push_latest_tag.sh"
+```
+
+## Update master with the next development version
+
+Remember, you are still on a branch, let's move back to `master`
+
+```
+./each.sh "pwd;git checkout master"
+```
+
+You may also cleanup the release meta data
+
+```
+./each.sh "pwd;git clean -fd"
+```
+
+### Update to the next dev version
