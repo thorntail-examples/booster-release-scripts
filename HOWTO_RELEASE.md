@@ -1,5 +1,16 @@
 # Release Instructions
 
+## Prerequisites
+
+- Clone this directory into $BOOSTER_DIR (your choice)
+- Fetch all booster repositories _into_ $BOOSTER_DIR (Need to be siblings of this repo)
+
+## Handle with care
+
+This works for me, but may not work for anybody else. In particular, these scripts have been tested on Mac OS, but may fail on other linux or unix systems.
+
+# Actual Released Steps
+
 ## Create local branches
 
 Assuming `SWARM-1571` is the jira issue to track the release:
