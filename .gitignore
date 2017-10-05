@@ -1,0 +1,7 @@
+/wfswarm-rest-http-secured
+/wfswarm-rest-http-crud
+/wfswarm-rest-http
+/wfswarm-health-check
+/wfswarm-configmap
+/wfswarm-circuit-breaker
+/.DS_Store
