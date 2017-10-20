@@ -3,7 +3,26 @@
 ## Prerequisites
 
 - Clone this directory into $BOOSTER_DIR (your choice)
-- Fetch all booster repositories _into_ $BOOSTER_DIR (Need to be siblings of this repo)
+- Fetch all booster repositories _into_ $BOOSTER_DIR (Need to be children of $BOOSTER_DIR)
+
+Your workspace should like like this:
+
+```
+.
+├── HOWTO_RELEASE.md
+├── advance_version.sh
+├── current_version.sh
+├── each.sh
+├── next_dev_version.sh
+├── prepare_rel_version.sh
+├── push_latest_tag.sh
+├── wfswarm-circuit-breaker
+├── wfswarm-configmap
+├── wfswarm-health-check
+├── wfswarm-rest-http
+├── wfswarm-rest-http-crud
+└── wfswarm-rest-http-secured
+```
 
 ## Handle with care
 
