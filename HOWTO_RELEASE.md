@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-- Clone this directory into $BOOSTER_DIR (your choice)
-- Fetch all booster repositories _into_ $BOOSTER_DIR (Need to be children of $BOOSTER_DIR)
+- Clone this directory into $BOOSTER_HOME (your choice)
+- Fetch all booster repositories _into_ $BOOSTER_HOME (Need to be children of $BOOSTER_HOME)
 
 Your workspace should like like this:
 
