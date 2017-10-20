@@ -70,7 +70,14 @@ i.e. you might want to update the swarm version, etc. do the work and commit it 
 
 In some cases you may have to regenerate the `license.xml`
 
-(TODO)
+NOTE: This requires `env.GENERATOR_HOME` and `env.BOOSTER_HOME`.
+The license generator currently resides here:
+
+- https://github.com/wildfly-swarm-openshiftio-boosters/wfswarm-booster-license-generator
+
+```
+./generate-licenses.sh
+```
 
 ### Align the meta data
 
