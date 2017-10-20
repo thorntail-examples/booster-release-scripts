@@ -25,12 +25,29 @@ Assuming `SWARM-1571` is the jira issue to track the release:
 ```
 ./each.sh "pwd;git checkout -b SWARM-1571"
 ```
+## Prepare the release
 
-## Do any additional work on the branch
+NOTE: `-c` for community releases, `-p` for product releases
 
-i.e. you might want to update the swarm version, etc. do the work and commit it on the branch before committing.
+```
+./each.sh "pwd;../prepare_rel_version.sh <FLAG>"
+```
 
-### License updates
+Skim over the commit history. The version should updated and a commit added. This step also create the tag already.
+
+```
+./each.sh "pwd;git log --oneline -n 2"
+```
+
+### Verify the updated branches
+
+i.e make sure the `pom.xml` looks correct and `pom-redhat.xml` has been removed.
+
+### Do any additional work on the branch
+
+i.e. you might want to update the swarm version, etc. do the work and commit it on the branch before proceeding.
+
+#### License updates
 
 In some cases you may have to regenerate the `license.xml`
 
@@ -49,25 +66,6 @@ versions:
     name: <PRODUCT_VERSION> (RHOAR)
 
 ```
-
-
-## Prepare the release
-
-NOTE: `-c` for community releases, `-p` for product releases
-
-```
-./each.sh "pwd;../prepare_rel_version.sh <FLAG>"
-```
-
-Skim over the commit history. The version should updated and a commit added. This step also create the tag already.
-
-```
-./each.sh "pwd;git log --oneline -n 2"
-```
-
-## Verify the updated branches
-
-i.e make sure the `pom.xml` looks correct and `pom-redhat.xml` has been removed.
 
 ## Push the tags
 
