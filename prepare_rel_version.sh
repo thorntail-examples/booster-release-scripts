@@ -49,6 +49,6 @@ mvn clean install
 
 git commit -a -m "Prepare for release $cleaned_version"
 
-git tag $cleaned_version
+#git tag $cleaned_version
 
 git log --oneline -n 3

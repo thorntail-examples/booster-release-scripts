@@ -12,4 +12,6 @@ cleaned_version=`echo $version | sed -e 's/[^0-9][^0-9]*$//'`
 
 echo "Going to push tag $cleaned_version"
 
+git tag -f $cleaned_version
+
 git push upstream $cleaned_version

@@ -52,7 +52,7 @@ NOTE: `-c` for community releases, `-p` for product releases
 ./each.sh "pwd;../prepare_rel_version.sh <FLAG>"
 ```
 
-Skim over the commit history. The version should updated and a commit added. This step also create the tag already.
+Skim over the commit history. The version should be updated and a commit added.
 
 ```
 ./each.sh "pwd;git log --oneline -n 2"
@@ -93,7 +93,7 @@ versions:
 
 ```
 
-## Push the tags
+## Create a tag and push it
 
 If all is good you can push the tags that have been created in the previous step.
 
@@ -102,7 +102,7 @@ If all is good you can push the tags that have been created in the previous step
 ```
 ### Gather the changes
 
-It's good to update the release jira with the chnages (i.e. new version tags)
+It's good to update the release Jira with the changes (i.e. new version tags)
 
 ```
 ./each.sh "pwd; ../current_version.sh -c"
