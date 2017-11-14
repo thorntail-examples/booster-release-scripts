@@ -33,8 +33,8 @@ This works for me, but may not work for anybody else. In particular, these scrip
 ## Start clean
 
 ```
-./each.sh "pwd;git checkout master"
-./each.sh "pwd;git pull upstream master"
+./each.sh "git checkout master"
+./each.sh "git pull upstream master"
 ```
 
 ## Create local branches
@@ -42,20 +42,20 @@ This works for me, but may not work for anybody else. In particular, these scrip
 Assuming `SWARM-1571` is the jira issue to track the release:
 
 ```
-./each.sh "pwd;git checkout -b SWARM-1571"
+./each.sh "git checkout -b SWARM-1571"
 ```
 ## Prepare the release
 
 NOTE: `-c` for community releases, `-p` for product releases
 
 ```
-./each.sh "pwd;../prepare_rel_version.sh <FLAG>"
+./each.sh "../prepare_rel_version.sh <FLAG>"
 ```
 
 Skim over the commit history. The version should be updated and a commit added.
 
 ```
-./each.sh "pwd;git log --oneline -n 2"
+./each.sh "git log --oneline -n 2"
 ```
 
 ### Verify the updated branches
@@ -98,14 +98,14 @@ versions:
 If all is good you can push the tags that have been created in the previous step.
 
 ```
-./each.sh "pwd;../push_latest_tag.sh"
+./each.sh "../push_latest_tag.sh"
 ```
 ### Gather the changes
 
 It's good to update the release Jira with the changes (i.e. new version tags)
 
 ```
-./each.sh "pwd; ../current_version.sh -c"
+./each.sh " ../current_version.sh -c"
 ```
 
 NOTE: This should match the tags
@@ -116,23 +116,23 @@ NOTE: This should match the tags
 Remember, you are still on a branch, let's move back to `master`
 
 ```
-./each.sh "pwd;git checkout master"
+./each.sh "git checkout master"
 ```
 
 You may also cleanup the release meta data
 
 ```
-./each.sh "pwd;git clean -fd"
+./each.sh "git clean -fd"
 ```
 
 ### Update to the next dev version
 
 ```
-./each.sh "pwd; ../next_dev_version.sh <FLAG>"
+./each.sh " ../next_dev_version.sh <FLAG>"
 ```
 
 If all looks good, you can push the changes:
 
 ```
-./each.sh "pwd;git push upstream master"
+./each.sh "git push upstream master"
 ```
