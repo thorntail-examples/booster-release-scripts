@@ -109,5 +109,11 @@ else
     fi
 
     cd $GENERATOR_HOME
-    custom $1
+
+    if [ "$1" = "wfswarm-circuit-breaker" ]; then
+      cb
+    else
+      custom $1
+    fi
+
 fi
