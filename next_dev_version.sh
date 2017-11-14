@@ -64,6 +64,13 @@ case "$1" in
 esac
 
 # perform tests
-mvn clean install
+#mvn clean install
 
-git commit -a -m "Next development version"
+case "$1" in
+  "-p")
+    git commit -a -m "Next product development version"
+    ;;
+  "-c")
+    git commit -a -m "Next community development version"
+    ;;
+esac
