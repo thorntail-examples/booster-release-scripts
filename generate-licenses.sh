@@ -21,6 +21,7 @@ function main() {
 
     mvn clean package \
     -Dbooster.pom.file="$dir/pom.xml" \
+    -Dbooster.project.dir="$dir" \
     -Dbooster.name="$name" \
     -Dbooster.assembly.name="$name" \
     -Dbooster.product.build="$name" \
@@ -48,6 +49,7 @@ function custom() {
     fi
 
     mvn clean package \
+    -Dbooster.pom.file="$dir/pom.xml" \
     -Dbooster.project.dir="$dir" \
     -Dbooster.name="$name" \
     -Dbooster.assembly.name="$name" \
