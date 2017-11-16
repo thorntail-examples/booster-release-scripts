@@ -79,6 +79,11 @@ The license generator currently resides here:
 ./generate-licenses.sh
 ```
 
+Review the licenses and add them
+```
+git add src/licenses
+```
+
 ### Align the meta data
 
 i.e. the version in `.openshiftio/booster.yml`
