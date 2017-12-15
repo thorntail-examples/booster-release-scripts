@@ -60,7 +60,7 @@ Skim over the commit history. The version should be updated and a commit added.
 
 ### Verify the updated branches
 
-i.e make sure the `pom.xml` looks correct and `pom-redhat.xml` has been removed.
+i.e make sure the `pom.xml` looks correct.
 
 ### Do any additional work on the branch
 

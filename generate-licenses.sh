@@ -5,11 +5,24 @@ set -euxo pipefail
 : ${GENERATOR_HOME?"Need the location of the license-generator"}
 : ${BOOSTER_HOME?"Need the location of the boosters"}
 
+case "$1" in
+  "-p")
+    suffix="-redhat"
+    ;;
+  "-c")
+    suffix=""
+    ;;
+  *)
+    echo "Usage: generate-licenses.sh <-p|-c>"
+    exit 1
+    ;;
+esac
+
 function main() {
   for booster in "wfswarm-rest-http" "wfswarm-rest-http-secured" "wfswarm-configmap" "wfswarm-health-check" "wfswarm-rest-http-crud"
   do
 
-    dir="$BOOSTER_HOME/$booster"
+    dir="$BOOSTER_HOME/$booster$suffix"
     name=`basename $dir`
     version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
 
@@ -38,7 +51,7 @@ function custom() {
   for booster in $1
   do
 
-    dir="$BOOSTER_HOME/$booster"
+    dir="$BOOSTER_HOME/$booster$suffix"
     name=`basename $dir`
     version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
 
@@ -68,7 +81,7 @@ function cb() {
   for module in "greeting-service" "name-service"
   do
 
-    dir="$BOOSTER_HOME/wfswarm-circuit-breaker"
+    dir="$BOOSTER_HOME/wfswarm-circuit-breaker$suffix"
     base=`basename $dir`
     name="$base-$module"
     version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
@@ -94,26 +107,7 @@ function cb() {
   done
 }
 
-
-
-if [ $# -eq 0 ]; then
-    echo "Processing all boosters"
-    cd $GENERATOR_HOME
-    main
-    cb
-else
-
-    if [ ! -d "$1" ]; then
-      echo "Directory does not exist: $1"
-      exit 1
-    fi
-
-    cd $GENERATOR_HOME
-
-    if [ "$1" = "wfswarm-circuit-breaker" ]; then
-      cb
-    else
-      custom $1
-    fi
-
-fi
+echo "Processing all boosters"
+cd $GENERATOR_HOME
+main
+cb
