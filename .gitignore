@@ -4,6 +4,7 @@
 /wfswarm-health-check
 /wfswarm-configmap
 /wfswarm-circuit-breaker
+*-redhat
 /.DS_Store
 pom.tmp
 prod
