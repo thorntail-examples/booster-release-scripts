@@ -51,17 +51,9 @@ esac
 echo "$cleaned_version -> $new_version"
 
 # update version
-case "$1" in
-  "-p")
-    # -i fails on mac os
-    sed "s/$cleaned_version/$new_version/g" pom-redhat.xml  > pom.tmp && mv pom.tmp pom-redhat.xml
-    ;;
-  "-c")
-    snapshot="$new_version-SNAPSHOT"
-    echo $snapshot
-    mvn versions:set -DnewVersion=$snapshot
-    ;;
-esac
+snapshot="$new_version-SNAPSHOT"
+echo $snapshot
+mvn versions:set -DnewVersion=$snapshot
 
 # perform tests
 #mvn clean install
