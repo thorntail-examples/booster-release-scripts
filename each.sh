@@ -2,15 +2,13 @@
 
 case "$1" in
   "-p")
-    target="prod"
+    find . -maxdepth 1 -type d -not -name '.*' -name '*-redhat' -exec bash -c "echo '{}' && cd '{}' && $2" \;
     ;;
   "-c")
-    target="."
+    find . -maxdepth 1 -type d -not -name '.*' -not -name '*-redhat' -exec bash -c "echo '{}' && cd '{}' && $2" \;
     ;;
   *)
     echo "Usage: each.sh <-p|-c>"
     exit 1
     ;;
 esac
-
-find $target -maxdepth 1 -type d -not -name '.*' -not -name 'prod' -exec bash -c "echo '{}' && cd '{}' && $2" \;
