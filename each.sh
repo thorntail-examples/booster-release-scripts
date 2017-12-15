@@ -13,4 +13,4 @@ case "$1" in
     ;;
 esac
 
-find $target -maxdepth 1 -type d -not -name '.*' -exec bash -c "echo '{}' && cd '{}' && $2" \;
+find $target -maxdepth 1 -type d -not -name '.*' -not -name 'prod' -exec bash -c "echo '{}' && cd '{}' && $2" \;
