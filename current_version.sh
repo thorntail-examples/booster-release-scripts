@@ -3,7 +3,7 @@
 # move pom.xml around
 case "$1" in
   "-p")
-    target="pom-redhat.xml"
+    target="pom.xml"
     ;;
   "-c")
     target="pom.xml"
