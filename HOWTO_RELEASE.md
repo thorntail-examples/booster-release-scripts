@@ -82,6 +82,7 @@ The license generator currently resides here:
 Review the licenses and add them
 ```
 git add src/licenses
+git commit -a -m 'Added licenses'
 ```
 
 ### Align the meta data

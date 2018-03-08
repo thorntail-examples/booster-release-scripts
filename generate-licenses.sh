@@ -8,9 +8,11 @@ set -euxo pipefail
 case "$1" in
   "-p")
     suffix="-redhat"
+    repo="https://maven.repository.redhat.com/ga/"
     ;;
   "-c")
     suffix=""
+    repo="https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/"
     ;;
   *)
     echo "Usage: generate-licenses.sh <-p|-c>"
@@ -38,7 +40,8 @@ function main() {
     -Dbooster.name="$name" \
     -Dbooster.assembly.name="$name" \
     -Dbooster.product.build="$name" \
-    -Dbooster.version="$version"
+    -Dbooster.version="$version" \
+    -Dbooster.repo.url="$repo"
 
     cp -R "target/license-project/target/licenses" "$dir/src/"
 
@@ -48,7 +51,7 @@ function main() {
 }
 
 function custom() {
-  for booster in $1
+  for booster in $2
   do
 
     dir="$BOOSTER_HOME/$booster$suffix"
