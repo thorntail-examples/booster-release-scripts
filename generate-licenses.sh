@@ -81,7 +81,7 @@ function custom() {
 
 # circuit breaker
 function cb() {
-  for module in "greeting-service" "name-service"
+  for module in "greeting-service" "name-service" "tests"
   do
 
     dir="$BOOSTER_HOME/wfswarm-circuit-breaker$suffix"
