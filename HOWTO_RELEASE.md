@@ -85,20 +85,6 @@ git add src/licenses
 git commit -a -m 'Added licenses'
 ```
 
-### Align the meta data
-
-i.e. the version in `.openshiftio/booster.yml`
-
-```
-[...]
-versions:
-  - id: community
-    name: <COMMUNITY_VERSION> (Community)
-  - id: redhat
-    name: <PRODUCT_VERSION> (RHOAR)
-
-```
-
 ## Create a tag and push it
 
 If all is good you can push the tags that have been created in the previous step.
