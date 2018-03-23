@@ -35,8 +35,8 @@ NOTE: the scripts expect a flag, `-c` for community releases, `-p` for product r
 ## Start clean
 
 ```
-./each.sh <FLAG>  "git checkout master"
-./each.sh <FLAG>  "git pull upstream master"
+./each.sh <FLAG> "git checkout master"
+./each.sh <FLAG> "git pull upstream master"
 ```
 
 ## Create local branches
@@ -55,7 +55,7 @@ Assuming `SWARM-1571` is the jira issue to track the release:
 Skim over the commit history. The version should be updated and a commit added.
 
 ```
-./each.sh <FLAG>  "git log --oneline -n 2"
+./each.sh <FLAG> "git log --oneline -n 2"
 ```
 
 ### Verify the updated branches
@@ -104,13 +104,13 @@ NOTE: This should match the tags
 
 ## Update master with the next development version
 
-Remember, you are still on a branch, let's move back to `master`:
+Remember, you are still on a branch, let's move back to `master`
 
 ```
 ./each.sh <FLAG> "git checkout master"
 ```
 
-You may also cleanup the release metadata:
+You may also cleanup the release metadata
 
 ```
 ./each.sh <FLAG> "git clean -fd"
