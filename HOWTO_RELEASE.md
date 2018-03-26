@@ -30,6 +30,7 @@ Please handle the scripts with care: they have been tested on Mac OS and Fedora,
 
 # Actual Release Steps
 
+The release process is performed on the master branch.
 NOTE: the scripts expect a flag, `-c` for community releases, `-p` for product releases.
 
 ## Start clean
@@ -44,20 +45,6 @@ Community:
 Product:
 ```
 ./each.sh -p "../update_master.sh"
-```
-
-## Create local branches
-
-Assuming `SWARM-1571` is the jira issue to track the release, the following script will switch to a new SWARM-1571 branch:
-
-Community:
-```
-./each.sh -c "../create_branch.sh SWARM-1571"
-```
-
-Product:
-```
-./each.sh -p "../create_branch.sh SWARM-1571"
 ```
 
 ## Prepare the release
@@ -76,13 +63,13 @@ Product:
 ./each.sh -p "../log_commits.sh"
 ```
 
-### Verify the updated branches
+### Verify the updated master branches
 
 i.e make sure the `pom.xml` looks correct.
 
-### Do any additional work on the branch
+### Do any additional work
 
-i.e. you might want to update the swarm version, etc. do the work and commit it on the branch before proceeding.
+i.e. you might want to update the swarm version, etc. do the work and commit it before proceeding.
 
 #### License updates
 
@@ -91,7 +78,7 @@ The license generator currently resides here:
 
 - https://github.com/wildfly-swarm-openshiftio-boosters/wfswarm-booster-license-generator
 
-The following script generates and adds the licenses to the branch:
+The following script generates and adds the licenses to the local master branch:
 
 Community:
 ```
@@ -103,7 +90,9 @@ Product:
 ./generate-licenses.sh -p
 ```
 
-Review the licenses: a recommended approach is to push the branch to the forked booster repository and run a RHOAR licenses validation test against this branch. This test is easy to set up and run, please ask the team for more details. If the validation test fails then remove the licenses from the branch, try to address the issues and repeat the process.
+Review the licenses: a recommended approach is to run a RHOAR licenses validation test against these licenses. This test is easy to set up and run, for example, the URL such as "file:$BOOSTER_HOME/wfs-rest-http@master" can be used by this test to validate the added licenses. Please ask the team for more details. 
+
+If the validation test fails then remove the licenses, try to address the issues and repeat the process.
 
 ## Create a tag and push it
 
@@ -138,17 +127,15 @@ Product:
 
 ## Update master with the next development version
 
-Remember, you are still on a branch. Let's move back to `master`, cleanup the release metadata, and update the next development version:
+Cleanup the release metadata and update the next development version:
 
 Community:
 ```
-./each.sh -c "../back_to_master.sh"
 ./each.sh -c " ../next_dev_version.sh -c"
 ```
 
 Product:
 ```
-./each.sh -p "../back_to_master.sh"
 ./each.sh -p " ../next_dev_version.sh -c"
 ```
 
@@ -161,5 +148,5 @@ Community:
 
 Product:
 ```
-./each.sh -c "../push_to_master.sh"
+./each.sh -p "../push_to_master.sh"
 ```
