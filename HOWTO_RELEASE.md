@@ -96,7 +96,7 @@ If the validation test fails then remove the licenses, try to address the issues
 
 ## Create a tag and push it
 
-If all is good you can push the tags that have been created in the previous step.
+If all is good you can create and push the tags.
 
 Community:
 ```
