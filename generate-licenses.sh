@@ -44,40 +44,13 @@ function main() {
     -Dbooster.repo.url="$repo"
 
     cp -R "target/license-project/target/licenses" "$dir/src/"
+    add_licenses $dir
 
     echo "Done generating licenses for $dir"
 
   done
 }
 
-function custom() {
-  for booster in $2
-  do
-
-    dir="$BOOSTER_HOME/$booster$suffix"
-    name=`basename $dir`
-    version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
-
-    # preflight
-    if [ -f "$dir/src/licenses/licenses.html" ]; then
-       echo "ERROR: Licenses already present, exiting..."
-       exit 1
-    fi
-
-    mvn clean package \
-    -Dbooster.pom.file="$dir/pom.xml" \
-    -Dbooster.project.dir="$dir" \
-    -Dbooster.name="$name" \
-    -Dbooster.assembly.name="$name" \
-    -Dbooster.product.build="$name" \
-    -Dbooster.version="$version"
-
-    cp -R "target/license-project/target/licenses" "$dir/src/"
-
-    echo "Done generating licenses for $dir"
-
-  done
-}
 
 # circuit breaker
 function cb() {
@@ -105,9 +78,17 @@ function cb() {
     -Dbooster.project.dir="$dir/$module"
 
     cp -R "target/license-project/target/licenses" "$dir/$module/src/"
+    add_licenses $dir
 
     echo "Done generating licenses for $dir/$module"
   done
+}
+
+function add_licenses() {
+  cd $1
+  git add src/licenses
+  git commit -a -m 'Added licenses'
+  cd -
 }
 
 echo "Processing all boosters"

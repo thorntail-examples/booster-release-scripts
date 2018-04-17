@@ -51,6 +51,7 @@ esac
 echo "$cleaned_version -> $new_version"
 
 # update version
+git clean -fd
 snapshot="$new_version-SNAPSHOT"
 echo $snapshot
 mvn versions:set -DnewVersion=$snapshot
