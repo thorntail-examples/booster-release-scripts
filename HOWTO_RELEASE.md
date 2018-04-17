@@ -136,7 +136,7 @@ Community:
 
 Product:
 ```
-./each.sh -p " ../next_dev_version.sh -c"
+./each.sh -p " ../next_dev_version.sh -p"
 ```
 
 If all looks good, you can push the changes to the upstream master:
