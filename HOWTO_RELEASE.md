@@ -96,7 +96,7 @@ If the validation test fails then remove the licenses, try to address the issues
 
 ## Create a tag and push it
 
-If all is good you can push the tags that have been created in the previous step.
+If all is good you can create and push the tags.
 
 Community:
 ```
@@ -136,7 +136,7 @@ Community:
 
 Product:
 ```
-./each.sh -p " ../next_dev_version.sh -c"
+./each.sh -p " ../next_dev_version.sh -p"
 ```
 
 If all looks good, you can push the changes to the upstream master:

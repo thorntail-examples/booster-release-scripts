@@ -45,7 +45,7 @@ function main() {
 
     cp -R "target/license-project/target/licenses" "$dir/src/"
     add_licenses $dir
-
+    commit_licenses $dir
     echo "Done generating licenses for $dir"
 
   done
@@ -78,15 +78,53 @@ function cb() {
     -Dbooster.project.dir="$dir/$module"
 
     cp -R "target/license-project/target/licenses" "$dir/$module/src/"
-    add_licenses $dir
+    add_licenses $dir/$module
 
     echo "Done generating licenses for $dir/$module"
   done
+  commit_licenses $dir
+}
+
+# cache
+function cache() {
+  for module in "greeting-service" "cute-name-service" "tests"
+  do
+
+    dir="$BOOSTER_HOME/wfswarm-cache$suffix"
+    base=`basename $dir`
+    name="$base-$module"
+    version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
+
+    # preflight
+
+    if [ -f "$dir/$module/src/licenses/licenses.html" ]; then
+       echo "ERROR: Licenses already present, exiting..."
+       exit 1
+    fi
+
+    mvn clean package \
+    -Dbooster.pom.file="$dir/$module/pom.xml" \
+    -Dbooster.name="$name" \
+    -Dbooster.assembly.name="$name" \
+    -Dbooster.product.build="$name" \
+    -Dbooster.version="$version" \
+    -Dbooster.project.dir="$dir/$module"
+
+    cp -R "target/license-project/target/licenses" "$dir/$module/src/"
+    add_licenses $dir/$module
+
+    echo "Done generating licenses for $dir/$module"
+  done
+  commit_licenses $dir
 }
 
 function add_licenses() {
   cd $1
   git add src/licenses
+  cd -
+}
+function commit_licenses() {
+  cd $1
   git commit -a -m 'Added licenses'
   cd -
 }
@@ -95,3 +133,4 @@ echo "Processing all boosters"
 cd $GENERATOR_HOME
 main
 cb
+cache
