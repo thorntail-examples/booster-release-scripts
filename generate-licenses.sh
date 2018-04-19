@@ -20,21 +20,25 @@ case "$1" in
     ;;
 esac
 
-function main() {
-  for booster in "wfswarm-rest-http" "wfswarm-rest-http-secured" "wfswarm-configmap" "wfswarm-health-check" "wfswarm-rest-http-crud"
-  do
 
-    dir="$BOOSTER_HOME/$booster$suffix"
-    name=`basename $dir`
-    version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
+# circuit breaker
+function cb() {
+  complex_booster wfswarm-circuit-breaker name-service
+}
 
-    # preflight
-    if [ -f "$dir/src/licenses/licenses.html" ]; then
-       echo "ERROR: Licenses already present, exiting..."
-       exit 1
-    fi
+# cache
+function cache() {
+  complex_booster wfswarm-cache cute-name-service
+}
 
-    mvn clean package \
+function simple_booster() {
+  cd $GENERATOR_HOME
+ 
+  dir="$BOOSTER_HOME/$1$suffix"
+  name=`basename $dir`
+  version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
+
+  mvn clean package \
     -Dbooster.pom.file="$dir/pom.xml" \
     -Dbooster.project.dir="$dir" \
     -Dbooster.name="$name" \
@@ -43,64 +47,25 @@ function main() {
     -Dbooster.version="$version" \
     -Dbooster.repo.url="$repo"
 
-    cp -R "target/license-project/target/licenses" "$dir/src/"
-    add_licenses $dir
-    commit_licenses $dir
-    echo "Done generating licenses for $dir"
-
-  done
-}
-
-
-# circuit breaker
-function cb() {
-  for module in "greeting-service" "name-service" "tests"
-  do
-
-    dir="$BOOSTER_HOME/wfswarm-circuit-breaker$suffix"
-    base=`basename $dir`
-    name="$base-$module"
-    version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
-
-    # preflight
-
-    if [ -f "$dir/$module/src/licenses/licenses.html" ]; then
-       echo "ERROR: Licenses already present, exiting..."
-       exit 1
-    fi
-
-    mvn clean package \
-    -Dbooster.pom.file="$dir/$module/pom.xml" \
-    -Dbooster.name="$name" \
-    -Dbooster.assembly.name="$name" \
-    -Dbooster.product.build="$name" \
-    -Dbooster.version="$version" \
-    -Dbooster.project.dir="$dir/$module"
-
-    cp -R "target/license-project/target/licenses" "$dir/$module/src/"
-    add_licenses $dir/$module
-
-    echo "Done generating licenses for $dir/$module"
-  done
+  cp -R "target/license-project/target/licenses" "$dir/src/"
+  add_licenses $dir
   commit_licenses $dir
+  echo "Done generating licenses for $dir" 
 }
 
-# cache
-function cache() {
-  for module in "greeting-service" "cute-name-service" "tests"
+
+function complex_booster() {
+  cd $GENERATOR_HOME
+
+  # right now the 2 complex boosters, circuit_breaker and cache, only differ in the 
+  # name of a single module but the other names can be parameterized too when needed 
+  for module in "greeting-service" "$2" "tests"
   do
 
-    dir="$BOOSTER_HOME/wfswarm-cache$suffix"
+    dir="$BOOSTER_HOME/$1$suffix"
     base=`basename $dir`
     name="$base-$module"
     version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
-
-    # preflight
-
-    if [ -f "$dir/$module/src/licenses/licenses.html" ]; then
-       echo "ERROR: Licenses already present, exiting..."
-       exit 1
-    fi
 
     mvn clean package \
     -Dbooster.pom.file="$dir/$module/pom.xml" \
@@ -123,6 +88,7 @@ function add_licenses() {
   git add src/licenses
   cd -
 }
+
 function commit_licenses() {
   cd $1
   git commit -a -m 'Added licenses'
@@ -130,7 +96,17 @@ function commit_licenses() {
 }
 
 echo "Processing all boosters"
-cd $GENERATOR_HOME
-main
-cb
-cache
+booster=`basename $(pwd)`
+
+case "$booster" in
+  "wfswarm-cache")
+    cache
+    ;;
+  "wfswarm-circuit-breaker")
+    cb
+    ;;
+  *)
+    simple_booster $booster
+    ;;
+esac
+
