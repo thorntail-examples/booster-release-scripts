@@ -109,4 +109,3 @@ case "$booster" in
     simple_booster $booster
     ;;
 esac
-

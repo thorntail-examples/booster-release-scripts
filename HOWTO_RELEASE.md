@@ -82,12 +82,12 @@ The following script generates and adds the licenses to the local master branch:
 
 Community:
 ```
-./each.sh -c "../generate_licenses.sh"
+./each.sh -c "../generate_licenses.sh -c"
 ```
 
 Product:
 ```
-./each.sh -p "../generate_licenses.sh"
+./each.sh -p "../generate_licenses.sh -p"
 ```
 
 Review the licenses: a recommended approach is to run a RHOAR licenses validation test against these licenses. This test is easy to set up and run, for example, the URL such as "file:$BOOSTER_HOME/wfs-rest-http@master" can be used by this test to validate the added licenses. Please ask the team for more details on how to install and configure the test.
