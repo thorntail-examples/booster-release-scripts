@@ -82,15 +82,15 @@ The following script generates and adds the licenses to the local master branch:
 
 Community:
 ```
-./generate-licenses.sh -c
+./each.sh -c "../generate_licenses.sh -c"
 ```
 
 Product:
 ```
-./generate-licenses.sh -p
+./each.sh -p "../generate_licenses.sh -p"
 ```
 
-Review the licenses: a recommended approach is to run a RHOAR licenses validation test against these licenses. This test is easy to set up and run, for example, the URL such as "file:$BOOSTER_HOME/wfs-rest-http@master" can be used by this test to validate the added licenses. Please ask the team for more details. 
+Review the licenses: a recommended approach is to run a RHOAR licenses validation test against these licenses. This test is easy to set up and run, for example, the URL such as "file:$BOOSTER_HOME/wfs-rest-http@master" can be used by this test to validate the added licenses. Please ask the team for more details on how to install and configure the test.
 
 If the validation test fails then remove the licenses, try to address the issues and repeat the process.
 
@@ -150,3 +150,11 @@ Product:
 ```
 ./each.sh -p "../push_to_master.sh"
 ```
+
+## Update Booster Catalog
+
+Finally, update Booster Catalog which resides at
+
+- https://github.com/fabric8-launcher/launcher-booster-catalog/tree/master/wildfly-swarm
+
+Update the tag reference at one of the existing modules or add a new module if it is a new booster.
