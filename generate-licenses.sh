@@ -3,7 +3,6 @@
 set -euxo pipefail
 
 : ${GENERATOR_HOME?"Need the location of the license-generator"}
-: ${BOOSTER_HOME?"Need the location of the boosters"}
 
 case "$1" in
   "-p")
@@ -23,20 +22,20 @@ esac
 
 # circuit breaker
 function cb() {
-  complex_booster wfswarm-circuit-breaker name-service
+  complex_booster name-service
 }
 
 # cache
 function cache() {
-  complex_booster wfswarm-cache cute-name-service
+  complex_booster cute-name-service
 }
 
 function simple_booster() {
-  cd $GENERATOR_HOME
- 
-  dir="$BOOSTER_HOME/$1$suffix"
+  dir=$(pwd)
   name=`basename $dir`
   version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
+
+  cd $GENERATOR_HOME
 
   mvn clean package \
     -Dbooster.pom.file="$dir/pom.xml" \
@@ -55,17 +54,18 @@ function simple_booster() {
 
 
 function complex_booster() {
+  dir=$(pwd)
+  base=`basename $dir`
+  version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
+
   cd $GENERATOR_HOME
 
   # right now the 2 complex boosters, circuit_breaker and cache, only differ in the 
   # name of a single module but the other names can be parameterized too when needed 
-  for module in "greeting-service" "$2" "tests"
+  for module in "greeting-service" "$1" "tests"
   do
 
-    dir="$BOOSTER_HOME/$1$suffix"
-    base=`basename $dir`
     name="$base-$module"
-    version=`mvn -f $dir/pom.xml -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec`
 
     mvn clean package \
     -Dbooster.pom.file="$dir/$module/pom.xml" \
@@ -106,6 +106,6 @@ case "$booster" in
     cb
     ;;
   *)
-    simple_booster $booster
+    simple_booster
     ;;
 esac

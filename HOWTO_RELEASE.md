@@ -73,7 +73,7 @@ i.e. you might want to update the swarm version, etc. do the work and commit it 
 
 #### License updates
 
-NOTE: This requires `env.GENERATOR_HOME` and `env.BOOSTER_HOME`.
+NOTE: This requires `env.GENERATOR_HOME`.
 The license generator currently resides here:
 
 - https://github.com/wildfly-swarm-openshiftio-boosters/wfswarm-booster-license-generator
@@ -90,7 +90,19 @@ Product:
 ./each.sh -p "../generate_licenses.sh -p"
 ```
 
-Review the licenses: a recommended approach is to run a RHOAR licenses validation test against these licenses. This test is easy to set up and run, for example, the URL such as "file:$BOOSTER_HOME/wfs-rest-http@master" can be used by this test to validate the added licenses. Please ask the team for more details on how to install and configure the test.
+Review the licenses. A recommended approach is to run a RHOAR licenses validation test against these licenses. Ask the team for details on how to install this test.
+
+NOTE: This requires `env.LICENSES_TEST_HOME` and `env.MAVEN_HOME`.
+
+Community:
+```
+./each.sh -c "../validate_licenses.sh"
+```
+
+Product:
+```
+./each.sh -p "../validate_licenses.sh"
+```
 
 If the validation test fails then remove the licenses, try to address the issues and repeat the process.
 
