@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Clone this directory into $BOOSTER_HOME (your choice)
-- Fetch all forked booster repositories _into_ $BOOSTER_HOME (Need to be children of $BOOSTER_HOME)
+- Fetch all forked booster repositories _into_ $BOOSTER_HOME (Need to be children of $BOOSTER_HOME). Make sure that the remote from wildfly-swarm-openshiftio-boosters is called **upstream**
 
 Your workspace should like like this:
 
