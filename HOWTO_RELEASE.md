@@ -73,10 +73,11 @@ i.e. you might want to update the swarm version, etc. do the work and commit it 
 
 #### License updates
 
-NOTE: This requires `env.GENERATOR_HOME`.
-The license generator currently resides here:
+Get the license generator from:
 
 - https://github.com/wildfly-swarm-openshiftio-boosters/wfswarm-booster-license-generator
+
+and set `env.GENERATOR_HOME` pointing to its clone folder.
 
 The following script generates and adds the licenses to the local master branch:
 
@@ -90,9 +91,7 @@ Product:
 ./each.sh -p "../generate_licenses.sh -p"
 ```
 
-Review the licenses. A recommended approach is to run a RHOAR licenses validation test against these licenses. Ask the team for details on how to install this test.
-
-NOTE: This requires `env.LICENSES_TEST_HOME` and `env.MAVEN_HOME`.
+Review the licenses. A recommended approach is to run a RHOAR licenses validation test against these licenses. Set `env.LICENSES_TEST_HOME` pointing to the test clone folder (ask the team about its github location) and `env.MAVEN_HOME` - to the Maven installation.
 
 Community:
 ```
