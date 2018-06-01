@@ -22,12 +22,12 @@ esac
 
 # circuit breaker
 function cb() {
-  complex_booster name-service
+  complex_booster greeting-service name-service tests
 }
 
 # cache
 function cache() {
-  complex_booster cute-name-service
+  complex_booster greeting-service cute-name-service tests
 }
 
 function simple_booster() {
@@ -60,9 +60,7 @@ function complex_booster() {
 
   cd $GENERATOR_HOME
 
-  # right now the 2 complex boosters, circuit_breaker and cache, only differ in the 
-  # name of a single module but the other names can be parameterized too when needed 
-  for module in "greeting-service" "$1" "tests"
+  for module in "$@"
   do
 
     name="$base-$module"
