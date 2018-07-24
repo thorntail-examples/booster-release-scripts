@@ -3,35 +3,50 @@
 ## Prerequisites
 
 - Clone this directory into $BOOSTER_HOME (your choice)
-- Fetch all forked booster repositories _into_ $BOOSTER_HOME (Need to be children of $BOOSTER_HOME). Make sure that the remote from wildfly-swarm-openshiftio-boosters is called **upstream**
+- Fetch all forked booster repositories _into_ $BOOSTER_HOME (Need to be children of $BOOSTER_HOME). Make sure that the remote from wildfly-swarm-openshiftio-boosters is called **upstream**. You can run `./clone_here.sh` to do this.
 
 Your workspace should like like this:
 
 ```
 .
-├── HOWTO_RELEASE.md
 ├── advance_version.sh
+├── clone_here.sh
 ├── current_version.sh
 ├── each.sh
+├── generate-licenses.sh
+├── HOWTO_RELEASE.md
 ├── next_dev_version.sh
 ├── prepare_rel_version.sh
 ├── push_latest_tag.sh
+├── push_to_master.sh
+├── README.md
+├── update_master.sh
+├── validate_licenses.sh
+├── wfswarm-cache
+├── wfswarm-cache-redhat
 ├── wfswarm-circuit-breaker
+├── wfswarm-circuit-breaker-redhat
 ├── wfswarm-configmap
+├── wfswarm-configmap-redhat
 ├── wfswarm-health-check
+├── wfswarm-health-check-redhat
 ├── wfswarm-rest-http
 ├── wfswarm-rest-http-crud
-└── wfswarm-rest-http-secured
+├── wfswarm-rest-http-crud-redhat
+├── wfswarm-rest-http-redhat
+├── wfswarm-rest-http-secured
+└── wfswarm-rest-http-secured-redhat
 ```
 
 ## Handle with care
 
-Please handle the scripts with care: they have been tested on Mac OS and Fedora, but may fail on other linux or unix systems.
+Please handle the scripts with care. They have been tested on Mac OS, Fedora and Ubuntu, but may fail on other Linux or Unix systems.
+(At this point, they may actually also fail on Mac OS, as noone except the original author doesn't use them in that environment.)
 
 # Actual Release Steps
 
 The release process is performed on the master branch.
-NOTE: the scripts expect a flag, `-c` for community releases, `-p` for product releases.
+NOTE: the `each.sh` script expects a flag, `-c` for community releases, `-p` for product releases.
 
 ## Start clean
 
@@ -49,27 +64,35 @@ Product:
 
 ## Prepare the release
 
-The folowing scripts will set the booster pom(s) to the release version and log the relevant commits:
+The following script will set the booster POM(s) to the release version and log the relevant commits:
 
 Community:
 ```
-./each.sh -c "../prepare_rel_version.sh -c"
+./each.sh -c "../prepare_rel_version.sh"
+```
+
+Product:
+```
+./each.sh -p "../prepare_rel_version.sh"
+```
+
+### Verify the updated master branches
+
+Make sure the `pom.xml` looks correct.
+
+Community:
+```
 ./each.sh -c "../log_commits.sh"
 ```
 
 Product:
 ```
-./each.sh -p "../prepare_rel_version.sh -p"
 ./each.sh -p "../log_commits.sh"
 ```
 
-### Verify the updated master branches
-
-i.e make sure the `pom.xml` looks correct.
-
 ### Do any additional work
 
-i.e. you might want to update the swarm version, etc. do the work and commit it before proceeding.
+E.g. you might want to update the Thorntail version, etc. Do the work and commit it before proceeding.
 
 #### License updates
 
@@ -77,21 +100,23 @@ Get the license generator from:
 
 - https://github.com/wildfly-swarm-openshiftio-boosters/wfswarm-booster-license-generator
 
-and set `env.GENERATOR_HOME` pointing to its clone folder.
+and set the `GENERATOR_HOME` environment variable to point to the cloned directory.
 
-The following script generates and adds the licenses to the local master branch:
+The following script generates and adds the licenses to the local `master` branch:
 
 Community:
 ```
-./each.sh -c "../generate_licenses.sh -c"
+./each.sh -c "../generate_licenses.sh"
 ```
 
 Product:
 ```
-./each.sh -p "../generate_licenses.sh -p"
+./each.sh -p "../generate_licenses.sh"
 ```
 
-Review the licenses. A recommended approach is to run a RHOAR licenses validation test against these licenses. Set `env.LICENSES_TEST_HOME` pointing to the test clone folder (ask the team about its github location) and `env.MAVEN_HOME` - to the Maven installation.
+Review the licenses. A recommended approach is to run the RHOAR licenses validation test against the local clones of the boosters.
+Set the `LICENSES_TEST_HOME` environment variable to point to the test directory; if you don't know where to clone it from, ask the team.
+Also set the `MAVEN_HOME` environment variable to point to the Maven installation.
 
 Community:
 ```
@@ -111,12 +136,12 @@ If all is good you can create and push the tags.
 
 Community:
 ```
-./each.sh -c "../push_latest_tag.sh upstream"
+./each.sh -c "../push_latest_tag.sh"
 ```
 
 Product:
 ```
-./each.sh -p "../push_latest_tag.sh upstream"
+./each.sh -p "../push_latest_tag.sh"
 ```
 
 ### Gather the changes
@@ -127,13 +152,13 @@ Use the following script to get all the version tags:
 Community:
 
 ```
-./each.sh -c " ../current_version.sh -c"
+./each.sh -c " ../current_version.sh"
 ```
 
 Product:
 
 ```
-./each.sh -p " ../current_version.sh -p"
+./each.sh -p " ../current_version.sh"
 ```
 
 ## Update master with the next development version
@@ -142,12 +167,12 @@ Cleanup the release metadata and update the next development version:
 
 Community:
 ```
-./each.sh -c " ../next_dev_version.sh -c"
+./each.sh -c " ../next_dev_version.sh"
 ```
 
 Product:
 ```
-./each.sh -p " ../next_dev_version.sh -p"
+./each.sh -p " ../next_dev_version.sh"
 ```
 
 If all looks good, you can push the changes to the upstream master:
@@ -166,6 +191,6 @@ Product:
 
 Finally, update Booster Catalog which resides at
 
-- https://github.com/fabric8-launcher/launcher-booster-catalog/tree/master/wildfly-swarm
+- https://github.com/fabric8-launcher/launcher-booster-catalog
 
 Update the tag reference at one of the existing modules or add a new module if it is a new booster.

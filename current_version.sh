@@ -1,21 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-# move pom.xml around
-case "$1" in
-  "-p")
-    target="pom.xml"
-    ;;
-  "-c")
-    target="pom.xml"
-    ;;
-  *)
-    echo "Usage: current_version.sh <-p|-c>"
-    exit 1
-    ;;
-esac
-
-if [ -e "$target" ]; then
-  mvn -f $target -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec
+if [ -f "pom.xml" ]; then
+  mvn --quiet --non-recursive exec:exec -Dexec.executable="echo" -Dexec.args='${project.version}'
 else
-  echo "File $target does not exist."
+  echo "pom.xml doesn't exist in $(pwd)"
 fi

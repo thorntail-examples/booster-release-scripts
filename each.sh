@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 case "$1" in
   "-p")
@@ -8,7 +8,7 @@ case "$1" in
     find . -maxdepth 1 -type d -not -name '.*' -not -name '*-redhat' -exec bash -c "echo '{}' && cd '{}' && $2" \;
     ;;
   *)
-    echo "Usage: each.sh <-p|-c>"
+    echo "usage: each.sh <-p|-c> <command>"
     exit 1
     ;;
 esac
