@@ -1,10 +1,4 @@
-/wfswarm-rest-http-secured
-/wfswarm-rest-http-crud
-/wfswarm-rest-http
-/wfswarm-health-check
-/wfswarm-configmap
-/wfswarm-circuit-breaker
-*-redhat
+wfswarm-*
 /.DS_Store
 pom.tmp
 prod

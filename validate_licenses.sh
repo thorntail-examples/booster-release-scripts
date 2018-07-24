@@ -1,22 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
 set -euxo pipefail
 
-: ${LICENSES_TEST_HOME?"Need the location of the licenses test"}
-: ${MAVEN_HOME?"Need the location of Maven"}
+: ${LICENSES_TEST_HOME?"need the location of the licenses test"}
+: ${MAVEN_HOME?"need the location of Maven"}
 
-function main() {
-  dir=$(pwd)
-  echo "Validating the booster licenses for $dir"
-  cd $LICENSES_TEST_HOME
-  
-  mvn clean test \
-    -Dtest=BoostersLicensesXmlTest \
-    -Dmaven.home="$MAVEN_HOME" \
-    -Dmarete.config=rhoar-boosters-branch \
-    -Dmarete.boosters.single="file:$dir@master"
+dir=$(pwd)
+echo "validating booster licenses in $dir"
+cd $LICENSES_TEST_HOME
 
-  echo "Done validating licenses for $dir" 
-}
+mvn clean test \
+  -Dtest=BoostersLicensesXmlTest \
+  -Dmaven.home="$MAVEN_HOME" \
+  -Dmarete.config=rhoar-boosters-branch \
+  -Dmarete.boosters.single="file:$dir@master"
 
-main
+echo "done validating licenses in $dir"
