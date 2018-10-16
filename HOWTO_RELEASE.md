@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Clone this directory into $BOOSTER_HOME (your choice)
-- Fetch all forked booster repositories _into_ $BOOSTER_HOME (Need to be children of $BOOSTER_HOME). Make sure that the remote from wildfly-swarm-openshiftio-boosters is called **upstream**. You can run `./clone_here.sh` to do this.
+- Fetch all forked booster repositories _into_ $BOOSTER_HOME (Need to be children of $BOOSTER_HOME). Make sure that the remote from https://github.com/thorntail-examples/ is called **upstream**. You can run `./clone_here.sh` to do this.
 
 Your workspace should like like this:
 
@@ -22,20 +22,20 @@ Your workspace should like like this:
 ├── README.md
 ├── update_master.sh
 ├── validate_licenses.sh
-├── wfswarm-cache
-├── wfswarm-cache-redhat
-├── wfswarm-circuit-breaker
-├── wfswarm-circuit-breaker-redhat
-├── wfswarm-configmap
-├── wfswarm-configmap-redhat
-├── wfswarm-health-check
-├── wfswarm-health-check-redhat
-├── wfswarm-rest-http
-├── wfswarm-rest-http-crud
-├── wfswarm-rest-http-crud-redhat
-├── wfswarm-rest-http-redhat
-├── wfswarm-rest-http-secured
-└── wfswarm-rest-http-secured-redhat
+├── cache
+├── cache-redhat
+├── circuit-breaker
+├── circuit-breaker-redhat
+├── configmap
+├── configmap-redhat
+├── health-check
+├── health-check-redhat
+├── rest-http
+├── rest-http-crud
+├── rest-http-crud-redhat
+├── rest-http-redhat
+├── rest-http-secured
+└── rest-http-secured-redhat
 ```
 
 ## Handle with care
@@ -98,7 +98,7 @@ E.g. you might want to update the Thorntail version, etc. Do the work and commit
 
 Get the license generator from:
 
-- https://github.com/wildfly-swarm-openshiftio-boosters/wfswarm-booster-license-generator
+- https://github.com/thorntail-examples/booster-license-generator
 
 and set the `GENERATOR_HOME` environment variable to point to the cloned directory.
 

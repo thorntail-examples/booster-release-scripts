@@ -77,10 +77,10 @@ commit_licenses () {
 }
 
 case "$(basename $(pwd))" in
-  wfswarm-cache*)
+  cache*)
     complex_booster greeting-service cute-name-service tests
     ;;
-  wfswarm-circuit-breaker*)
+  circuit-breaker*)
     complex_booster greeting-service name-service tests
     ;;
   *)
