@@ -83,8 +83,11 @@ case "$(basename $(pwd))" in
   circuit-breaker*)
     complex_booster greeting-service name-service tests
     ;;
-  istio-circuit-breaker*)
-    complex_booster greeting-service name-service tests
+  messaging-work-queue*)
+    complex_booster frontend worker tests
+    ;;
+  istio-tracing*)
+    complex_booster greeting-service cute-name-service
     ;;
   *)
     simple_booster
