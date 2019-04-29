@@ -6,10 +6,10 @@ set -euxo pipefail
 
 case "$(basename $(pwd))" in
   *-redhat)
-    repo="https://maven.repository.redhat.com/ga/"
+    product="true"
     ;;
   *)
-    repo="https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/"
+    product="false"
     ;;
 esac
 
@@ -22,13 +22,11 @@ simple_booster () {
   cd $GENERATOR_HOME
 
   mvn clean package \
-    -Dbooster.pom.file="$dir/pom.xml" \
     -Dbooster.project.dir="$dir" \
     -Dbooster.name="$name" \
-    -Dbooster.assembly.name="$name" \
-    -Dbooster.product.build="$name" \
     -Dbooster.version="$version" \
-    -Dbooster.repo.url="$repo"
+    -Dbooster.assembly.name="$name" \
+    -Dbooster.product.build="$product"
 
   cp -R "target/license-project/target/licenses" "$dir/src/"
   add_licenses $dir
@@ -49,12 +47,11 @@ complex_booster () {
     name="$base-$module"
 
     mvn clean package \
-      -Dbooster.pom.file="$dir/$module/pom.xml" \
+      -Dbooster.project.dir="$dir/$module" \
       -Dbooster.name="$name" \
-      -Dbooster.assembly.name="$name" \
-      -Dbooster.product.build="$name" \
       -Dbooster.version="$version" \
-      -Dbooster.project.dir="$dir/$module"
+      -Dbooster.assembly.name="$name" \
+      -Dbooster.product.build="$product"
 
     cp -R "target/license-project/target/licenses" "$dir/$module/src/"
     add_licenses $dir/$module
