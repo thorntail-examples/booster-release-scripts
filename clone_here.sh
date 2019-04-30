@@ -10,6 +10,7 @@ repositories=(
   "git@github.com:thorntail-examples/circuit-breaker.git"
   "git@github.com:thorntail-examples/cache.git"
   "git@github.com:thorntail-examples/messaging-work-queue.git"
+  "git@github.com:thorntail-examples/istio-tracing.git"
   # redhat
   "git@github.com:thorntail-examples/rest-http-redhat.git"
   "git@github.com:thorntail-examples/rest-http-crud-redhat.git"
@@ -19,6 +20,7 @@ repositories=(
   "git@github.com:thorntail-examples/circuit-breaker-redhat.git"
   "git@github.com:thorntail-examples/cache-redhat.git"
   # TODO no messaging-work-queue-redhat yet
+  "git@github.com:thorntail-examples/istio-tracing-redhat.git"
 )
 
 for R in "${repositories[@]}" ; do

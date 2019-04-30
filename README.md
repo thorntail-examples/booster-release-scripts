@@ -18,6 +18,8 @@ $ tree -L 1 -d
 ├── configmap-redhat
 ├── health-check
 ├── health-check-redhat
+├── istio-tracing
+├── istio-tracing-redhat
 ├── messaging-work-queue
 ├── rest-http
 ├── rest-http-crud
