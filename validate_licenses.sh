@@ -2,17 +2,18 @@
 
 set -euxo pipefail
 
-: ${LICENSES_TEST_HOME?"need the location of the licenses test"}
-: ${MAVEN_HOME?"need the location of Maven"}
+: ${LICENSES_TEST_HOME:?"missing environment variable LICENSES_TEST_HOME with the licenses test location"}
+: ${M2_HOME:?"missing environment variable M2_HOME with Maven location"}
 
 dir=$(pwd)
-echo "validating booster licenses in $dir"
-cd $LICENSES_TEST_HOME
+echo "validating licenses in $dir"
 
+cd $LICENSES_TEST_HOME
 mvn clean test \
   -Dtest=BoostersLicensesXmlTest \
-  -Dmaven.home="$MAVEN_HOME" \
+  -Dmaven.home="$M2_HOME" \
   -Dmarete.config=rhoar-boosters-branch \
   -Dmarete.boosters.single="file:$dir@master"
+cd $dir
 
 echo "done validating licenses in $dir"
