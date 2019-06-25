@@ -93,6 +93,9 @@ Get the license generator from:
 
 and set the `GENERATOR_HOME` environment variable to point to the cloned directory.
 
+If you want to use an external license service, also set the `LICENSE_SERVICE` environment variable.
+Ask the team for the license service URL.
+
 The following script generates and adds the licenses to the local `master` branch:
 
 Community:
@@ -107,7 +110,7 @@ Product:
 
 Review the licenses. A recommended approach is to run the RHOAR licenses validation test against the local clones of the boosters.
 Set the `LICENSES_TEST_HOME` environment variable to point to the test directory; if you don't know where to clone it from, ask the team.
-Also set the `MAVEN_HOME` environment variable to point to the Maven installation.
+Also set the `M2_HOME` environment variable to point to the Maven installation.
 
 Community:
 ```
