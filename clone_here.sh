@@ -19,7 +19,7 @@ repositories=(
   "git@github.com:thorntail-examples/health-check-redhat.git"
   "git@github.com:thorntail-examples/circuit-breaker-redhat.git"
   "git@github.com:thorntail-examples/cache-redhat.git"
-  # TODO no messaging-work-queue-redhat yet
+  "git@github.com:thorntail-examples/messaging-work-queue-redhat.git"
   "git@github.com:thorntail-examples/istio-tracing-redhat.git"
 )
 

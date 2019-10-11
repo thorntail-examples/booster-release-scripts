@@ -21,6 +21,7 @@ $ tree -L 1 -d
 ├── istio-tracing
 ├── istio-tracing-redhat
 ├── messaging-work-queue
+├── messaging-work-queue-redhat
 ├── rest-http
 ├── rest-http-crud
 ├── rest-http-crud-redhat
